@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
 
         final EditText weightField = (EditText) findViewById(R.id.weight_field);
         final EditText heightField = (EditText) findViewById(R.id.height_field);
-        TextView resultsText = (TextView) findViewById(R.id.results_text);
+        final TextView resultsText = (TextView) findViewById(R.id.results_text);
         Button calculateButton = (Button) findViewById(R.id.calculate_button);
 
         calculateButton.setOnClickListener(new View.OnClickListener() {
@@ -33,7 +33,14 @@ public class MainActivity extends ActionBarActivity {
 
                 Log.d("BMICALC", "Weight is " + weight + ", height is " + height);
 
-                // Can you fill in the rest, and set resultsText to show the result?
+                double bmi = weight / (height * height);
+                String bmiString = String.format("%.2f", bmi);
+                if (bmi >= 18.5 && bmi <= 23) {
+                    resultsText.setText("Your BMI, " + bmiString +", is in the healthy range!");
+                } else {
+                    resultsText.setText("Your BMI, " + bmiString + ", is not in the healthy range.");
+                }
+
 
             }
         });
