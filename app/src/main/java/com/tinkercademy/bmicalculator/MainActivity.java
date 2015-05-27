@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -28,17 +29,28 @@ public class MainActivity extends ActionBarActivity {
                 String weightString = weightField.getText().toString();
                 String heightString = heightField.getText().toString();
 
-                double weight = Double.parseDouble(weightString);
-                double height = Double.parseDouble(heightString);
+                if (weightString.isEmpty() || heightString.isEmpty()) {
 
-                Log.d("BMICALC", "Weight is " + weight + ", height is " + height);
+                    Toast.makeText(getApplicationContext(), "You need to enter something!", Toast.LENGTH_SHORT).show();
 
-                double bmi = weight / (height * height);
-                String bmiString = String.format("%.2f", bmi);
-                if (bmi >= 18.5 && bmi <= 23) {
-                    resultsText.setText("Your BMI, " + bmiString +", is in the healthy range!");
                 } else {
-                    resultsText.setText("Your BMI, " + bmiString + ", is not in the healthy range.");
+                    double weight = Double.parseDouble(weightString);
+                    double height = Double.parseDouble(heightString);
+
+                    if (weight <= 0 || height <= 0) {
+                        Toast.makeText(getApplicationContext(), "Value error!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d("BMICALC", "Weight is " + weight + ", height is " + height);
+
+                        double bmi = weight / (height * height);
+                        String bmiString = String.format("%.2f", bmi);
+                        if (bmi >= 18.5 && bmi <= 23) {
+                            resultsText.setText("Your BMI, " + bmiString + ", is in the healthy range!");
+                        } else {
+                            resultsText.setText("Your BMI, " + bmiString + ", is not in the healthy range.");
+                        }
+                    }
+
                 }
 
 
